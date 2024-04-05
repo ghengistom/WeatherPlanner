@@ -2,13 +2,14 @@
   "name": "nodebootstraper",
   "version": "5.0.0",
   "dependencies": {
-    "express": "*",
-    "pug": "*",
-    "stylus": "*",
-    "serve-favicon": "*",
-    "morgan": "*",
+    "axios": "^1.6.8",
     "body-parser": "*",
-    "method-override": "*"
+    "express": "*",
+    "method-override": "*",
+    "morgan": "*",
+    "pug": "*",
+    "serve-favicon": "*",
+    "stylus": "*"
   },
   "engines": {
     "node": "*",
