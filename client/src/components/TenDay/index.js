@@ -1,11 +1,26 @@
 import React, { Component, useState, useEffect, createElement } from 'react';
 import './style.css';
 import axios from 'axios';
-import 'bootstrap/dist/css/bootstrap.css';
+
+function TenDay() {
+
+  // const x = document.getElementById("div1");
+
+  // function getLocation() {
+  //   if (navigator.geolocation) {
+  //     navigator.geolocation.getCurrentPosition(showPosition);
+  //   } else {
+  //     x.innerHTML = "Geolocation is not supported by this browser.";
+  //   }
+  // }
+  
+  // function showPosition(position) {
+  //   x.innerHTML = "Latitude: " + position.coords.latitude +
+  //   "<br>Longitude: " + position.coords.longitude;
+  // }
 
 
 
-function About() {
   const [count, setCount] = useState(0);
   const [posts, setPosts] = useState([]);
   const [weatherRecords, setWeatherRecords] = useState([]);
@@ -19,7 +34,11 @@ function About() {
       div.innerHTML = `
             <div class="card-body">
                 <h5 class="card-title">${element.name }</h5>
-                <p class="card-text">${element.shortForecast}</p>
+                <p class="card-text">${element.detailedForecast}</p>
+                <p class="card-text">Temperature: ${element.temperature} ${element.temperatureUnit}</p>
+                <p class="card-text">Wind direction: ${element.windDirection}</p>
+                <p class="card-text">Wind speed: ${element.windSpeed}</p>
+
             </div>
       `;
       document.getElementById('div1').appendChild(div);
@@ -30,9 +49,7 @@ function About() {
   };
   // Similar to componentDidMount and componentDidUpdate:
   useEffect(() => {
-    // Update the document title using the browser API
-    document.title = `You clicked ${count} times`;
-    
+    // Update the document title using the browser API    
     axios.get('https://api.weather.gov/gridpoints/SGX/60,52/forecast')
     .then(response => {
       const periodRecords = [...response.data.properties.periods]
@@ -44,7 +61,7 @@ function About() {
 
       console.log('response.data.properties', response.data.properties);
       console.log('response.data.properties.periods[0].detailedForecast', response.data.properties.periods[0].detailedForecast);
-      console.log('response.data.properties.BaselineForecastGenerator', response.data.properties.BaselineForecastGenerator.periods[0]);
+      console.log('response.data.properties', response.data.properties);
 
     })
     .catch(error => {
@@ -61,6 +78,7 @@ function About() {
 
   return (
     <div id="myDIV"> 
+    <h1>10 Day Forecast</h1>
       {/* <p>You clicked {count} times</p>
       <button onClick={() => setCount(count + 1)}>
         Click me
@@ -75,4 +93,4 @@ function About() {
   );
 }
 
-export default About;
+export default TenDay;

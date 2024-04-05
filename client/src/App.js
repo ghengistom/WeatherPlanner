@@ -5,7 +5,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './components/Home';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import About from './components/About';
+import TenDay from './components/TenDay';
 import Contact from './components/Contact';
 import NotFound from './components/NotFound';
 
@@ -21,7 +21,7 @@ class App extends Component {
           <div className="container">
             <Routes>
               <Route exact path="/" element={<Home/>} />
-              <Route path="/about" element={<About/>} />
+              <Route path="/TenDay" element={<TenDay/>} />
               <Route path="/contact" element={<Contact/>} />
               <Route path="*" element={<NotFound/>} />
             </Routes>
