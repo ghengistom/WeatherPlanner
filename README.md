@@ -74,4 +74,4 @@ class Home extends Component {
 ```
 
 ## Author
-Kory Becker http://www.primaryobjects.com/kory-becker
+Tom Bernard

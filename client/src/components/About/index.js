@@ -12,8 +12,6 @@ function About() {
   const [periodRecords, setPeriodRecords] = useState([]);
 
   const makePage = (array) => {
-    let html = '';
-    let htmlFc = '';
     array.forEach((element, index, array) => {
       var div = document.createElement('div');
       div.setAttribute('id', index);
@@ -25,13 +23,11 @@ function About() {
             </div>
       `;
       document.getElementById('div1').appendChild(div);
-      console.log(element.name); // 100, 200, 300
-      console.log(index); // 0, 1, 2
-      console.log(array); // same myArray object 3 times
+      // console.log(element.name); // 100, 200, 300
+      // console.log(index); // 0, 1, 2
+      // console.log(array); // same myArray object 3 times
     });
-
   };
-
   // Similar to componentDidMount and componentDidUpdate:
   useEffect(() => {
     // Update the document title using the browser API
@@ -64,19 +60,12 @@ function About() {
   }  
 
   return (
-  
     <div id="myDIV"> 
-      <p>You clicked {count} times</p>
+      {/* <p>You clicked {count} times</p>
       <button onClick={() => setCount(count + 1)}>
         Click me
-      </button>
-      {/* <p>{posts}</p> */}
-
-      {/* {(weatherRecords) ? makePage(weatherRecords): ''} */}
-      <span id="test"></span>
-
+      </button> */}
       <div id="div1">
-
       </div>
 
       
