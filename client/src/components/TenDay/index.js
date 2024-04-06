@@ -11,8 +11,17 @@ function TenDay() {
   const [gpsX, setGpsX] = useState(null);
   const [gpsY, setGpsY] = useState(null);
   const [tenDayApi, setTenDayApi] = useState(null);
+  const [todayDate, setTodayDate] = useState(null);
+
 
   function getLocation() {
+    let today = new Date();
+    const dd = String(today.getDate()).padStart(2, '0');
+    const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    const yyyy = today.getFullYear();
+    
+    today = mm + '/' + dd + '/' + yyyy;
+    setTodayDate(today);
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(showPosition);
       return true;
@@ -97,7 +106,8 @@ function TenDay() {
 
   return (
     <div id="myDIV"> 
-    <h1>10 Day Forecast</h1>
+<h1>10 Day Forecast for {todayDate}</h1>
+<hr></hr>
       {/* <p>You clicked {count} times</p>
       <button onClick={() => setCount(count + 1)}>
         Click me
