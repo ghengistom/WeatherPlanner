@@ -2,6 +2,9 @@ import React, { Component, useState, useEffect, createElement } from 'react';
 import './style.css';
 import axios from 'axios';
 
+
+
+
 function TenDay() {
 
   const [count, setCount] = useState(0);
@@ -12,6 +15,7 @@ function TenDay() {
   const [gpsY, setGpsY] = useState(null);
   const [tenDayApi, setTenDayApi] = useState(null);
   const [todayDate, setTodayDate] = useState(null);
+  let first = 0;
 
 
   function getLocation() {
@@ -37,23 +41,7 @@ function TenDay() {
     setGpsY(gpsY);
     getEndPoints(gpsX, gpsY);
   }
-  const makePage = (array) => {
-    array.forEach((element, index, array) => {
-      var div = document.createElement('div');
-      div.setAttribute('id', index);
-      div.setAttribute('class', 'card boxBorder')
-      div.innerHTML = `
-            <div class="card-body">
-                <h5 class="card-title">${element.name }</h5>
-                <p class="card-text">${element.detailedForecast}</p>
-                <p class="card-text">Temperature: ${element.temperature} ${element.temperatureUnit}</p>
-                <p class="card-text">Wind direction: ${element.windDirection}</p>
-                <p class="card-text">Wind speed: ${element.windSpeed}</p>
-            </div>
-      `;
-      document.getElementById('div1').appendChild(div);
-    });
-  };
+
   const getEndPoints = (x,y)=>{
     // Update the document title using the browser API    
     // axios.get('https://api.weather.gov/gridpoints/SGX/60,52/forecast')
@@ -87,6 +75,38 @@ function TenDay() {
       console.error(error);
     });
   }
+
+  const makePage = (array) => {
+  
+    for(let i = 0; i < array.length; i++)
+    {
+      console.log('makePage array[i]', array[i]);
+      console.log('makePage array', array);
+      var div = document.createElement('div'); 
+      div.innerHTML = `
+      <div className="accordion accordion-flush" id="accordionFlushExample">
+        <div className="accordion-item">
+          <h2 className="accordion-header" id="${i}flush-headingOne">
+            ${array[i].name }
+          </h2>
+          <div id="${i}flush-collapseOne" className="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+            <div id="${i}df" className="accordion-body">${array[i].detailedForecast}</div>
+            <div id="${i}tmp" className="accordion-body">Temperature: ${array[i].temperature} ${array[i].temperatureUnit}</div>
+            <div id="${i}wd" className="accordion-body">Wind direction: ${array[i].windDirection}</div>
+            <div id="${i}ws" className="accordion-body">Wind direction: ${array[i].windSpeed}</div>
+  
+          </div>
+        </div>
+      </div>
+      `;
+      document.getElementById('div1').appendChild(div);
+  
+    }
+  };
+  
+
+
+
   // Similar to componentDidMount and componentDidUpdate:
   useEffect(() => {
     getLocation();
@@ -95,19 +115,26 @@ function TenDay() {
         getTenDay(tenDayApi);
       }
     
-    console.log('gpsX and gpsY' + gpsX + gpsY)
+    console.log('gpsX and gpsY' + gpsX + gpsY);
+
+
 
   },[posts, tenDayApi]);
 
-  if(posts){
-    makePage(periodRecords);
-    // makePage(weatherRecords);
-  }  
+  useEffect(() => {
+    if(posts && first === 0){
+      makePage(periodRecords);
+      first++;
+      // makePage(weatherRecords);
+    }  
+  },[posts, tenDayApi]);
+
+
 
   return (
     <div id="myDIV"> 
-<h1>10 Day Forecast for {todayDate}</h1>
-<hr></hr>
+      <h1>10 Day Forecast for {todayDate}</h1>
+      <hr></hr>
       {/* <p>You clicked {count} times</p>
       <button onClick={() => setCount(count + 1)}>
         Click me
