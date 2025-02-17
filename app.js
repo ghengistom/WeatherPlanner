@@ -11,10 +11,18 @@ var express = require('express')
   , logger = require('morgan')
   , methodOverride = require('method-override');
 
+const cors = require('cors');
 var app = express();
 
-app.set('port', process.env.PORT || 3000);
+// Enable CORS for all origins
+app.use(cors());
+
+const port = process.env.port || 5000
+
+console.log('process.env.PORT', process.env.PORT)
+app.set('port', process.env.PORT || 5000);
 app.use(favicon(__dirname + '/public/images/favicon.png'));
+
 app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(methodOverride('_method'));
@@ -30,6 +38,4 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname+'/client/build/index.html'));
 });
 
-http.createServer(app).listen(app.get('port'), function(){
-  console.log("Express server listening on port " + app.get('port'));
-});
+app.listen(port);
