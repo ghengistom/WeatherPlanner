@@ -17,7 +17,9 @@ var app = express();
 // Enable CORS for all origins
 app.use(cors());
 
-const port = process.env.port || 5000
+// const port = process.env.port || 5000
+const port = 5000;
+
 
 console.log('process.env.PORT', process.env.PORT)
 app.set('port', process.env.PORT || 5000);
