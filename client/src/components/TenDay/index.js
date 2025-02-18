@@ -83,21 +83,28 @@ function TenDay() {
       console.log('makePage array[i]', array[i]);
       console.log('makePage array', array);
       var div = document.createElement('div'); 
+      div.className = "card shadow-sm";
+      // div.className = "card border border-success p-2 mb-2";
+      div.style = "width: 18 rem";
+      div.id = `${i}.card`
       div.innerHTML = `
-      <div className="accordion accordion-flush" id="accordionFlushExample">
-        <div className="accordion-item">
-          <h2 className="accordion-header" id="${i}flush-headingOne">
-            ${array[i].name }
-          </h2>
-          <div id="${i}flush-collapseOne" className="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-            <div id="${i}df" className="accordion-body">${array[i].detailedForecast}</div>
-            <div id="${i}tmp" className="accordion-body">Temperature: ${array[i].temperature} ${array[i].temperatureUnit}</div>
-            <div id="${i}wd" className="accordion-body">Wind direction: ${array[i].windDirection}</div>
-            <div id="${i}ws" className="accordion-body">Wind direction: ${array[i].windSpeed}</div>
-  
-          </div>
-        </div>
-      </div>
+            <div className="card-body">
+              <h2 className="card-title" id="${i}flush-headingOne">
+                ${array[i].name }
+              </h2>
+              <p className="card-text">${array[i].detailedForecast}</p>
+
+            </div>
+            <ul className="list-group list-group-flush">
+              <div className="widget-49">
+                  <li id="${i}tmp" className="list-group-item">Temperature: ${array[i].temperature} ${array[i].temperatureUnit}</p>
+                  <li id="${i}wd" className="list-group-item">Wind direction: ${array[i].windDirection}</p>
+                  <li id="${i}ws" className="list-group-item">Wind direction: ${array[i].windSpeed}</p>
+                
+              </div>
+
+            
+            </div>
       `;
       document.getElementById('div1').appendChild(div);
   
@@ -132,7 +139,7 @@ function TenDay() {
 
 
   return (
-    <div id="myDIV"> 
+    <div class="container-xxl my-md-4 bd-layout" id="myDIV"> 
       <h1>10 Day Forecast for {todayDate}</h1>
       <hr></hr>
       {/* <p>You clicked {count} times</p>

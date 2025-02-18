@@ -18,7 +18,7 @@ class Header extends Component {
             <ul className="navbar-nav me-auto mb-2 mb-md-0">
               <NavLink to="/">Home</NavLink>
               <NavLink to="/TenDay">10 Day Forecast</NavLink>
-              <NavLink to="/contact">Contact</NavLink>
+              <NavLink to="/contact">Today</NavLink>
             </ul>
           </div>
         </div>
