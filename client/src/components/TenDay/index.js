@@ -83,12 +83,13 @@ function TenDay() {
       console.log('makePage array[i]', array[i]);
       console.log('makePage array', array);
       var div = document.createElement('div'); 
-      div.className = "card shadow-sm";
+      // div.className = "card shadow-sm card-margin-1";
+      div.className = "card shadow-sm mb-3 card-padding";
       // div.className = "card border border-success p-2 mb-2";
       div.style = "width: 18 rem";
       div.id = `${i}.card`
       div.innerHTML = `
-            <div className="card-body">
+            <div className="card-body card-margin-1">
               <h2 className="card-title" id="${i}flush-headingOne">
                 ${array[i].name }
               </h2>

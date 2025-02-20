@@ -22,3 +22,14 @@
 .card-title {
     margin-bottom: .5rem;
 }
+
+.card-padding {
+    padding: 1rem;
+}
+.card-margin-1{
+    margin: 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
