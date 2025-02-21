@@ -39,15 +39,15 @@ function TenDay() {
     const gpsY = position.coords.longitude.toFixed(4);
     setGpsX(gpsX); 
     setGpsY(gpsY);
-    getEndPoints(gpsX, gpsY);
+    get10DayForecast(gpsX, gpsY);
   }
 
-  const getEndPoints = (x,y)=>{
+  const get10DayForecast = (x,y)=>{
     // Update the document title using the browser API    
     // axios.get('https://api.weather.gov/gridpoints/SGX/60,52/forecast')
     axios.get(`https://api.weather.gov/points/${x},${y}`)
     .then(response => {
-      console.log('getEndPoints response.data.properties.forecast', response.data.properties.forecast);
+      console.log('get10DayForecast response.data.properties.forecast', response.data.properties.forecast);
       setTenDayApi(response.data.properties.forecast)
       return true;
     })

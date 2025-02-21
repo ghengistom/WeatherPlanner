@@ -10,7 +10,8 @@ class Footer extends Component {
     return (
       <footer className="footer mt-auto py-3 bg-light">
         <div className="container">
-          <span className="text-muted">&copy;&nbsp;<Link to='/author'>Author</Link> 2023</span>
+          <span className="text-muted">&copy;&nbsp;<Link to='/author'>Author</Link> 2025</span>
+          <span> <p> Tom Bernard </p></span>
         </div>
       </footer>
     )
