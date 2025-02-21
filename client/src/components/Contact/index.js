@@ -1,14 +1,10 @@
 import React, { Component, useState, useEffect } from 'react';
 import './style.css';
-import axios from 'axios';
-
 
 function Contact() {
   const [weatherData, setWeatherData] = useState(null);
-
   const [gpsX, setGpsX] = useState(null);
   const [gpsY, setGpsY] = useState(null);
-//   const [tenDayApi, setTenDayApi] = useState(null);
   const [todayDate, setTodayDate] = useState(null);
 
   function getLocation() {
@@ -17,8 +13,6 @@ function Contact() {
     const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
     const yyyy = today.getFullYear();
     today = mm + '/' + dd + '/' + yyyy;
-
-
 
     setTodayDate(today);
     if (navigator.geolocation) {
@@ -29,19 +23,7 @@ function Contact() {
        return false;
     }
   }
-//   const get10DayForecast = (x,y)=>{
-//     // Update the document title using the browser API    
-//     // axios.get('https://api.weather.gov/gridpoints/SGX/60,52/forecast')
-//     axios.get(`https://api.weather.gov/points/${x},${y}`)
-//     .then(response => {
-//       console.log('get10DayForecast response.data.properties.forecast', response.data.properties.forecast);
-//       setTenDayApi(response.data.properties.forecast)
-//       return true;
-//     })
-//     .catch(error => {
-//       console.error(error);
-//     });
-//   }
+
   function showPosition(position) {
     const gpsX = position.coords.latitude.toFixed(4);
     const gpsY = position.coords.longitude.toFixed(4);
@@ -69,11 +51,6 @@ function Contact() {
         console.error('Error fetching weather data:', error);
     });
 
-
-
-
-
-    //get10DayForecast(gpsX, gpsY);
   }
 
 
@@ -81,29 +58,8 @@ function Contact() {
 
   useEffect(() => {
       getLocation();
-      //fetchWeatherData(gpsX, gpsY);
   }, []);
 
-//   const fetchWeatherData = (gpsX, gpsY) => {
-//       fetch(`https://api.weather.gov/points/${gpsX},${gpsY}`)
-//           .then(response => {
-//               if (!response.ok) {
-//                   throw new Error('Network response was not ok');
-//               }
-//               return response.json();
-//           })
-//           .then(data => {
-//               const forecastUrl = data.properties.forecast;
-//               return fetch(forecastUrl);
-//           })
-//           .then(response => response.json())
-//           .then(data => {
-//               setWeatherData(data);
-//           })
-//           .catch(error => {
-//               console.error('Error fetching weather data:', error);
-//           });
-//   };
 
   return (
       <div className="container mt-5">
