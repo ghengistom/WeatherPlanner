@@ -24,33 +24,38 @@ function Contact() {
     }
   }
 
-  function showPosition(position) {
+  async function showPosition(position) {
     const gpsX = position.coords.latitude.toFixed(4);
     const gpsY = position.coords.longitude.toFixed(4);
     setGpsX(gpsX); 
     setGpsY(gpsY);
 
-    //fetch the weather data
-    fetch(`https://api.weather.gov/points/${gpsX},${gpsY}`)
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-        const forecastUrl = data.properties.forecast;
-        return fetch(forecastUrl);
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log('setWeatherData data', data)
-        setWeatherData(data);
-    })
-    .catch(error => {
-        console.error('Error fetching weather data:', error);
-    });
+        try{
+            //fetch the weather data
+            let forecastUrl = null;
+            let fc2 = null;
+            console.log('gpsX', gpsX);
+            console.log('gpsY', gpsY);
 
+            const response = await fetch(`https://api.weather.gov/points/${gpsX},${gpsY}`)
+            .then(response=> response.json())
+            .then(data=>{
+                console.log('forecastUrl', data);
+
+                forecastUrl =  fetch(data.properties.forecast)
+                                .then(response=> response.json())
+                                .then(data=>{console.log('forecastUrl', data)
+                                    setWeatherData(data);
+
+                                });
+                                console.log('data.properties.forecast', data.properties.forecast)});
+       
+        }
+        catch(error) {
+            console.error('Error fetching weather data:', error);
+            console.error('Error fetching weather data:', error.message);
+        }
+   
   }
 
 
