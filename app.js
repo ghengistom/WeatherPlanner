@@ -2,7 +2,8 @@
 /**
  * Module dependencies.
  */
-
+var apiRoutes = require('./apiRoutes.js')
+var sqlite3 = require('sqlite3')
 var express = require('express')
   , http = require('http')
   , path = require('path')
@@ -13,13 +14,44 @@ var express = require('express')
 
 const cors = require('cors');
 var app = express();
-
 // Enable CORS for all origins
 app.use(cors());
-
 // const port = process.env.port || 5000
 const port = 5000;
 
+//Connect to Database
+const db = new sqlite3.Database('users.db', (err) => {
+    if (err) {
+      console.error(err.message);
+    }
+    console.log('Connected to the database.');
+  });
+
+
+app.post('/api/user', async (req, res) => {
+  try {
+      console.log('req.body', req.body);
+      console.log('Inside router.post');
+      const sql = 'INSERT INTO users(id, ipaddress, gpsx, gpsy) VALUES(?, ?, ?, ?)';
+      const data = [1, '123.312', 123.256, 62.3659];
+  
+      db.run(sql, data, function(err) {
+        if (err) {
+          return console.error(err.message);
+        }
+        console.log(`A row has been inserted with rowid ${this.lastID}`);
+      });
+
+      res.send(JSON.stringify('200'));
+    res.status(201);
+  } catch (err) {
+    console.error(err);
+    console.error(err.body);
+
+    res.status(500).send('Server error');
+  }
+
+});
 
 console.log('process.env.PORT', process.env.PORT)
 app.set('port', process.env.PORT || 5000);
@@ -39,5 +71,19 @@ if (app.get('env') == 'development') {
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname+'/client/build/index.html'));
 });
+
+// app.post('/user', async (req, res) => {
+//   try {
+//       console.log('req.body', req.body);
+//       console.log('Inside router.post');
+//     res.status(201).json(rows[0]);
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).send('Server error');
+//   }
+
+// });
+
+
 
 app.listen(port);

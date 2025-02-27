@@ -15,7 +15,21 @@ function TenDay() {
   const [gpsY, setGpsY] = useState(null);
   const [tenDayApi, setTenDayApi] = useState(null);
   const [todayDate, setTodayDate] = useState(null);
+  const [iP, setIP] = useState(null);
   let first = 0;
+
+  //Get user ip address
+  const getIpAddress = async () => {
+
+      const res = await axios.get("https://api.ipify.org/?format=json")
+      .then(response => {
+        console.log(response.data);
+        setIP(response.data.ip);
+        return true;
+      }).catch(error => {
+        console.error(error);
+      });
+  };
 
 
   function getLocation() {
@@ -40,6 +54,9 @@ function TenDay() {
     setGpsX(gpsX); 
     setGpsY(gpsY);
     get10DayForecast(gpsX, gpsY);
+
+    
+
   }
 
   const get10DayForecast = (x,y)=>{
@@ -117,17 +134,58 @@ function TenDay() {
 
   // Similar to componentDidMount and componentDidUpdate:
   useEffect(() => {
+    getIpAddress();
     getLocation();
       console.log('tenDayApi', tenDayApi)
       if(tenDayApi){
         getTenDay(tenDayApi);
       }
+
     
     console.log('gpsX and gpsY' + gpsX + gpsY);
-
-
+    // fetch('http://localhost:5000/user')
+    // .then(response => response.json())
+    // .then(data => setMessage(data.message));
+    handlePostRequest();
 
   },[posts, tenDayApi]);
+
+   const handlePostRequest = async () => {
+    console.log('inside handlePostRequest ');
+
+    const response = await fetch('/api/user', {
+      method: 'POST',
+      mode:'cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body : JSON.stringify({
+        id: 1,
+        ipaddress: iP,
+        gpsx: gpsX,
+        gpsy: gpsY,
+      }),
+    })
+    .then(response => {
+      if (!response.ok) {
+        console.log('response', response);
+        throw new Error(`HTTP error! status: ${response}`);
+      }
+      console.log(JSON.stringify(response));
+      return response.json();
+    })
+    .then(responseData => {
+      console.log('Success:', responseData);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      console.log(error);
+
+    })
+
+    
+  };
+
 
   useEffect(() => {
     if(posts && first === 0){
