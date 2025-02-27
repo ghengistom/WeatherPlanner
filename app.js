@@ -14,6 +14,10 @@ var express = require('express')
 
 const cors = require('cors');
 var app = express();
+
+// create application/json parser
+var jsonParser = bodyParser.json()
+
 // Enable CORS for all origins
 app.use(cors());
 // const port = process.env.port || 5000
@@ -28,12 +32,12 @@ const db = new sqlite3.Database('users.db', (err) => {
   });
 
 
-app.post('/api/user', async (req, res) => {
+app.post('/api/user', jsonParser, async (req, res) => {
   try {
       console.log('req.body', req.body);
       console.log('Inside router.post');
       const sql = 'INSERT INTO users(id, ipaddress, gpsx, gpsy) VALUES(?, ?, ?, ?)';
-      const data = [1, '123.312', 123.256, 62.3659];
+      const data = [req.body.id, req.body.ipaddress, req.body.gpsx, req.body.gpsy];
   
       db.run(sql, data, function(err) {
         if (err) {
