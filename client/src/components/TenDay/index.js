@@ -17,6 +17,7 @@ function TenDay() {
   const [todayDate, setTodayDate] = useState(null);
   const [iP, setIP] = useState(null);
   let first = 0;
+  let second = 0;
 
   //Get user ip address
   const getIpAddress = async () => {
@@ -136,17 +137,20 @@ function TenDay() {
   useEffect(() => {
     getIpAddress();
     getLocation();
-      console.log('tenDayApi', tenDayApi)
-      if(tenDayApi){
-        getTenDay(tenDayApi);
-      }
+    console.log('tenDayApi', tenDayApi)
+    if(tenDayApi){
+      getTenDay(tenDayApi);
+    }
 
     
     console.log('gpsX and gpsY' + gpsX + gpsY);
     // fetch('http://localhost:5000/user')
     // .then(response => response.json())
     // .then(data => setMessage(data.message));
-    handlePostRequest();
+    if(second === 0 && iP !== null){
+      handlePostRequest();
+      second++;
+    }
 
   },[posts, tenDayApi]);
 
@@ -193,7 +197,7 @@ function TenDay() {
       first++;
       // makePage(weatherRecords);
     }  
-  },[posts, tenDayApi]);
+  },[]);
 
 
 
