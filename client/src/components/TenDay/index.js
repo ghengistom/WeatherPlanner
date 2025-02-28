@@ -192,11 +192,11 @@ function TenDay() {
 
 
   useEffect(() => {
-    if(posts && first === 0){
+    //if(posts && first === 0){
       makePage(periodRecords);
       first++;
       // makePage(weatherRecords);
-    }  
+    //}  
   },[]);
 
 
