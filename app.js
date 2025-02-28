@@ -2,7 +2,7 @@
 /**
  * Module dependencies.
  */
-var apiRoutes = require('./apiRoutes.js')
+// var apiRoutes = require('./apiRoutes.js')
 var sqlite3 = require('sqlite3')
 var express = require('express')
   , http = require('http')
